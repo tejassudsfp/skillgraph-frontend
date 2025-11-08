@@ -10,6 +10,7 @@
 @plugin "tailwindcss-animate";
 @plugin "@tailwindcss/typography";
 
+
 /* define design tokens (light mode) */
 :root {
   --card: oklch(1 0 0);
