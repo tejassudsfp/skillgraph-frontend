@@ -6,6 +6,8 @@ import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
+const API_URL = process.env.NEXT_PUBLIC_SKILLGRAPH_API_URL || "http://localhost:8000";
+
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -20,7 +22,7 @@ export default function LoginPage() {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:8000/api/v1/auth/send-otp", {
+      const response = await fetch(`${API_URL}/api/v1/auth/send-otp`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -47,7 +49,7 @@ export default function LoginPage() {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:8000/api/v1/auth/verify-otp", {
+      const response = await fetch(`${API_URL}/api/v1/auth/verify-otp`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -30,7 +30,7 @@ type Message = {
   thinking?: boolean;
 };
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000";
+const BACKEND_URL = process.env.NEXT_PUBLIC_SKILLGRAPH_API_URL || "http://localhost:8000";
 
 export function ChatSimple() {
   const [messages, setMessages] = useState<Message[]>([]);

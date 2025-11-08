@@ -11,6 +11,8 @@ import { SkillModeRenderer } from "@/components/skill-mode-renderer";
 import { TokenUsageDisplay } from "@/components/token-usage-display";
 import { TokenStatsDialog } from "@/components/token-stats-dialog";
 
+const API_URL = process.env.NEXT_PUBLIC_SKILLGRAPH_API_URL || "http://localhost:8000";
+
 interface Conversation {
   id: string;
   title: string;
@@ -150,7 +152,7 @@ export default function ChatPage() {
 
   const checkAuth = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/v1/auth/me", {
+      const response = await fetch(`${API_URL}/api/v1/auth/me`, {
         credentials: "include",
       });
 
@@ -168,7 +170,7 @@ export default function ChatPage() {
 
   const loadConversations = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/v1/conversations", {
+      const response = await fetch(`${API_URL}/api/v1/conversations`, {
         credentials: "include",
       });
 
@@ -189,7 +191,7 @@ export default function ChatPage() {
   const loadMessages = async (conversationId: string) => {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/v1/conversations/${conversationId}/messages`,
+        `${API_URL}/api/v1/conversations/${conversationId}/messages`,
         {
           credentials: "include",
         }
@@ -239,7 +241,7 @@ export default function ChatPage() {
     try {
       setTokenUsageLoading(true);
       const response = await fetch(
-        `http://localhost:8000/api/v1/conversations/${conversationId}/token-usage`,
+        `${API_URL}/api/v1/conversations/${conversationId}/token-usage`,
         {
           credentials: "include",
         }
@@ -261,7 +263,7 @@ export default function ChatPage() {
 
   const createNewConversation = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/v1/conversations", {
+      const response = await fetch(`${API_URL}/api/v1/conversations`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -307,7 +309,7 @@ export default function ChatPage() {
 
     try {
       const response = await fetch(
-        `http://localhost:8000/api/v1/conversations/${currentConversationId}/messages/stream`,
+        `${API_URL}/api/v1/conversations/${currentConversationId}/messages/stream`,
         {
           method: "POST",
           headers: {
@@ -456,7 +458,7 @@ export default function ChatPage() {
 
   const handleLogout = async () => {
     try {
-      await fetch("http://localhost:8000/api/v1/auth/logout", {
+      await fetch(`${API_URL}/api/v1/auth/logout`, {
         method: "POST",
         credentials: "include",
       });
@@ -822,7 +824,7 @@ export default function ChatPage() {
 
                             try {
                               const response = await fetch(
-                                `http://localhost:8000/api/v1/conversations/${currentConversationId}/messages/stream`,
+                                `${API_URL}/api/v1/conversations/${currentConversationId}/messages/stream`,
                                 {
                                   method: "POST",
                                   headers: { "Content-Type": "application/json" },

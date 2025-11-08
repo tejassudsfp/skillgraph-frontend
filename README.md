@@ -23,7 +23,7 @@ npm start
 Create `.env.local`:
 
 ```bash
-NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
+NEXT_PUBLIC_SKILLGRAPH_API_URL=http://localhost:8000
 ```
 
 ## Architecture
