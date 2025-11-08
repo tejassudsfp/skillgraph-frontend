@@ -1,0 +1,10 @@
+# robots.txt for skillgraph.live
+
+User-agent: *
+Allow: /
+
+# sitemaps
+Sitemap: https://skillgraph.live/sitemap.xml
+
+# crawl-delay for polite crawling
+Crawl-delay: 1
