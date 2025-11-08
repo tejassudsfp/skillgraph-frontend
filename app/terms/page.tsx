@@ -7,7 +7,7 @@ export default function TermsPage() {
             terms of use
           </h1>
           <p className="text-sm mb-12" style={{ color: "#6a6a6a" }}>
-            last updated: november 5, 2025
+            last updated: november 8, 2025
           </p>
 
           <div className="space-y-8">
@@ -122,7 +122,7 @@ export default function TermsPage() {
                 <li className="text-lg">• use it privately</li>
               </ul>
               <p className="text-lg leading-relaxed" style={{ color: "#4a4a4a" }}>
-                the source code is available at <a href="https://github.com/tejassudsfp/skillgraph" target="_blank" className="underline">github.com/tejassudsfp/skillgraph</a>
+                the source code is available at <a href="https://github.com/tejassudsfp/skillgraph-backend" target="_blank" className="underline">github.com/tejassudsfp/skillgraph-backend</a> (backend) and <a href="https://github.com/tejassudsfp/skillgraph-frontend" target="_blank" className="underline">github.com/tejassudsfp/skillgraph-frontend</a> (frontend)
               </p>
             </section>
 
@@ -204,7 +204,7 @@ export default function TermsPage() {
               <p className="text-lg" style={{ color: "#4a4a4a" }}>
                 tejas parthasarathi sudarshan<br />
                 email: <a href="mailto:t@fanpit.live" className="underline">t@fanpit.live</a><br />
-                github: <a href="https://github.com/tejassudsfp/skillgraph" target="_blank" className="underline">github.com/tejassudsfp/skillgraph</a>
+                github: <a href="https://github.com/tejassudsfp" target="_blank" className="underline">github.com/tejassudsfp</a>
               </p>
             </section>
 
@@ -214,7 +214,7 @@ export default function TermsPage() {
                 by using skillgraph, you agree to these terms
               </h2>
               <p className="text-lg leading-relaxed" style={{ color: "#2d2d2d" }}>
-                if you do not agree to these terms, please do not use skillgraph. you can always <a href="https://github.com/tejassudsfp/skillgraph" target="_blank" className="underline">self-host your own instance</a> with full control over your data.
+                if you do not agree to these terms, please do not use skillgraph. you can always <a href="https://github.com/tejassudsfp/skillgraph-backend" target="_blank" className="underline">self-host your own instance</a> with full control over your data.
               </p>
             </section>
           </div>
