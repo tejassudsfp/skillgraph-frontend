@@ -90,7 +90,7 @@ export function Navbar() {
               updates
             </Link>
             <a
-              href="https://github.com/tejassudsfp/skillgraph"
+              href="https://github.com/tejassudsfp/skillgraph-backend"
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm font-medium transition-colors"
