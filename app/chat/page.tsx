@@ -88,6 +88,7 @@ export default function ChatPage() {
   const [isStreaming, setIsStreaming] = useState(false);
   const [tokenUsage, setTokenUsage] = useState<TokenUsageData | null>(null);
   const [tokenUsageLoading, setTokenUsageLoading] = useState(false);
+  const [creatingConversation, setCreatingConversation] = useState(false);
 
   // Check authentication on mount
   useEffect(() => {
@@ -111,10 +112,13 @@ export default function ChatPage() {
   // Stream funky loading messages character by character
   useEffect(() => {
     if (!loading) {
-      setStreamedText("");
-      setIsStreaming(false);
-      setLoadingWordIndex(0);
-      return;
+      // Keep the last message visible for 2 seconds before clearing
+      const clearTimer = setTimeout(() => {
+        setStreamedText("");
+        setIsStreaming(false);
+        setLoadingWordIndex(0);
+      }, 2000);
+      return () => clearTimeout(clearTimer);
     }
 
     setIsStreaming(true);
@@ -262,7 +266,10 @@ export default function ChatPage() {
   };
 
   const createNewConversation = async () => {
+    if (creatingConversation) return; // Prevent double-clicks
+
     try {
+      setCreatingConversation(true);
       const response = await fetch(`${API_URL}/api/v1/conversations`, {
         method: "POST",
         headers: {
@@ -280,6 +287,8 @@ export default function ChatPage() {
       await loadConversations();
     } catch (err) {
       console.error("Failed to create conversation:", err);
+    } finally {
+      setCreatingConversation(false);
     }
   };
 
@@ -366,9 +375,9 @@ export default function ChatPage() {
                   )
                 );
               } else if (parsed.type === "skill_result") {
-                console.log("[FRONTEND-STREAM] Processing skill_result:", parsed.skill_name, parsed.data);
+                console.log("[FRONTEND-STREAM] Processing skill_result:", parsed.skillName, parsed.data);
                 // Skill result - store separately for component rendering
-                if (parsed.skill_name === "web_search" && parsed.data) {
+                if (parsed.skillName === "web_search" && parsed.data) {
                   // Store web search results for component rendering
                   setMessages((prev) =>
                     prev.map((msg) =>
@@ -385,7 +394,7 @@ export default function ChatPage() {
                         : msg
                     )
                   );
-                } else if (parsed.skill_name === "skillgraph_docs" && parsed.data?.message) {
+                } else if (parsed.skillName === "skillgraph_docs" && parsed.data?.message) {
                   // Documentation skill - show the answer from data.message
                   console.log("[FRONTEND-STREAM] Skillgraph docs message:", parsed.data.message.substring(0, 100));
                   assistantMessage += `\n\n${parsed.data.message}`;
@@ -396,7 +405,7 @@ export default function ChatPage() {
                         : msg
                     )
                   );
-                } else if (parsed.skill_name === "ticket_booking" && parsed.data) {
+                } else if (parsed.skillName === "ticket_booking" && parsed.data) {
                   // Ticket booking skill - store for SkillModeRenderer
                   console.log("[FRONTEND-STREAM] Ticket booking data:", parsed.data);
                   setMessages((prev) =>
@@ -478,13 +487,15 @@ export default function ChatPage() {
         <div className="h-full flex flex-col p-4">
           <Button
             onClick={createNewConversation}
+            disabled={creatingConversation}
             className="w-full mb-4 font-medium"
             style={{
               backgroundColor: "#2d2d2d",
               color: "#fff9ef",
+              opacity: creatingConversation ? 0.6 : 1,
             }}
           >
-            + new chat
+            {creatingConversation ? "creating..." : "+ new chat"}
           </Button>
 
           <div className="flex-1 overflow-y-auto space-y-2 mb-4">
