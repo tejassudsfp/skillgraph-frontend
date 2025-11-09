@@ -89,6 +89,7 @@ export default function ChatPage() {
   const [tokenUsage, setTokenUsage] = useState<TokenUsageData | null>(null);
   const [tokenUsageLoading, setTokenUsageLoading] = useState(false);
   const [creatingConversation, setCreatingConversation] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Check authentication on mount
   useEffect(() => {
@@ -479,10 +480,38 @@ export default function ChatPage() {
 
   return (
     <div className="flex h-screen pt-16" style={{ backgroundColor: "#fff9ef" }}>
+      {/* Mobile sidebar toggle button */}
+      <button
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+        className="md:hidden fixed top-20 left-4 z-50 p-2 rounded border-2"
+        style={{
+          backgroundColor: "#fff9ef",
+          borderColor: "#2d2d2d",
+        }}
+      >
+        <svg className="w-6 h-6" fill="none" stroke="#2d2d2d" viewBox="0 0 24 24">
+          {sidebarOpen ? (
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          ) : (
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          )}
+        </svg>
+      </button>
+
+      {/* Sidebar backdrop for mobile */}
+      {sidebarOpen && (
+        <div
+          className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
       <div
-        className="w-64 border-r-2"
-        style={{ borderColor: "#2d2d2d" }}
+        className={`${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } md:translate-x-0 fixed md:relative w-64 h-full border-r-2 transition-transform duration-300 ease-in-out z-40`}
+        style={{ borderColor: "#2d2d2d", backgroundColor: "#fff9ef" }}
       >
         <div className="h-full flex flex-col p-4">
           <Button
@@ -502,7 +531,10 @@ export default function ChatPage() {
             {conversations.map((conv) => (
               <button
                 key={conv.id}
-                onClick={() => setCurrentConversationId(conv.id)}
+                onClick={() => {
+                  setCurrentConversationId(conv.id);
+                  setSidebarOpen(false); // Close sidebar on mobile after selection
+                }}
                 className={`w-full text-left p-3 rounded border-2 transition-colors ${
                   currentConversationId === conv.id
                     ? "font-bold"
