@@ -387,7 +387,7 @@ export default function ChatPage() {
                             ...msg,
                             content: assistantMessage,
                             skillResult: {
-                              skill_name: "web_search",
+                              skillName: "web_search",
                               data: parsed.data,
                               cached: parsed.cached || false,
                             },
@@ -832,7 +832,7 @@ export default function ChatPage() {
                 {msg.role === "assistant" ? (
                   <>
                     {/* Render skill results as components */}
-                    {msg.skillResult?.skill_name === "web_search" && msg.skillResult.data && (
+                    {msg.skillResult?.skillName === "web_search" && msg.skillResult.data && (
                       <div className="mb-4">
                         <WebSearchResults
                           data={msg.skillResult.data}
@@ -841,7 +841,7 @@ export default function ChatPage() {
                       </div>
                     )}
 
-                    {msg.skillResult?.skill_name === "ticket_booking" && msg.skillResult.data && (
+                    {msg.skillResult?.skillName === "ticket_booking" && msg.skillResult.data && (
                       <div className="mb-4">
                         <SkillModeRenderer
                           skillName="ticket_booking"
