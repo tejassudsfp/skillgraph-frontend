@@ -38,8 +38,8 @@ interface Message {
     cached?: boolean;
   };
   skillResult?: {
-    skill_name: string;
-    render_type?: string;
+    skillName: string;
+    renderType?: string;
     data: any;
     cached?: boolean;
   };
@@ -416,8 +416,8 @@ export default function ChatPage() {
                             ...msg,
                             content: assistantMessage,
                             skillResult: {
-                              skill_name: "ticket_booking",
-                              render_type: parsed.render_type || "booking_workflow",
+                              skillName: "ticket_booking",
+                              renderType: parsed.renderType || "booking_workflow",
                               data: parsed.data,
                               cached: parsed.cached || false,
                             },
@@ -845,7 +845,7 @@ export default function ChatPage() {
                       <div className="mb-4">
                         <SkillModeRenderer
                           skillName="ticket_booking"
-                          renderType={msg.skillResult.render_type || "booking_workflow"}
+                          renderType={msg.skillResult.renderType || "booking_workflow"}
                           data={msg.skillResult.data}
                           onUserAction={async (input: string) => {
                             // Send user action back to skill by simulating a message send
@@ -924,8 +924,8 @@ export default function ChatPage() {
                                                   ...msg,
                                                   content: assistantMessage,
                                                   skillResult: {
-                                                    skill_name: "ticket_booking",
-                                                    render_type: parsed.render_type || "booking_workflow",
+                                                    skillName: "ticket_booking",
+                                                    renderType: parsed.renderType || "booking_workflow",
                                                     data: parsed.data,
                                                     cached: false,
                                                   },
